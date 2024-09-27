@@ -20,3 +20,29 @@
     gap: 20px;
   }
   
+
+
+  /* Estilos par que el contenedor de las notas crezca confrme se agregan */
+  /* EL DETALLE ES Que SE Inicializa pequeño y queda parte balco que se tapa conforme crece */
+  /* .note-board {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  
+  .add-note-btn {
+    background-color: #f7c5a0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+   */

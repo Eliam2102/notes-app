@@ -1,0 +1,42 @@
+
+.app-bar {
+    background-color: #f7c5a0;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-weight: bold;
+  }
+  
+  h2 {
+    font-weight: 400;
+    margin: 0;
+  }
+
+
+  .note-board {
+    padding: 20px;
+    background-color: #FBF3D5;
+    border-radius: 8px;
+  }
+  
+  .add-note-btn {
+    background-color: #f7c5a0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #000;
+    margin-bottom: 20px;
+    font-size: bold;
+  }
+  
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  

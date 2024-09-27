@@ -10,15 +10,16 @@
   justify-content: center;
   align-items: center;
   animation: fadeIn 0.3s ease;
+  z-index: 1000; /* Aseguramos que esté encima de todo */
 }
 
 /* Animación del fondo */
 @keyframes fadeIn {
   from {
-      opacity: 0;
+    opacity: 0;
   }
   to {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
@@ -31,17 +32,18 @@
   width: 90%;
   max-width: 500px; 
   animation: slideIn 0.3s ease;
+  z-index: 1001; /* Aseguramos que el modal esté por encima del overlay */
 }
 
 /* Animación del modal */
 @keyframes slideIn {
   from {
-      transform: translateY(-20px);
-      opacity: 0;
+    transform: translateY(-20px);
+    opacity: 0;
   }
   to {
-      transform: translateY(0);
-      opacity: 1;
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
