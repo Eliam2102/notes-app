@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App'; // Asegúrate de que App es el componente que contiene tu layout
-import './App.css'; // Asegúrate de que el path al archivo CSS es correcto
+import './assets/styles/App.css'; // Asegúrate de que el path al archivo CSS es correcto
 
 ReactDOM.render(
   <React.StrictMode>

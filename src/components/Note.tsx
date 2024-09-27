@@ -1,31 +1,63 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { NotesContext } from '../context/NoteContext';
+import '../assets/styles/Notes.css';
+import Swal from 'sweetalert2';
+import { FaTrash } from 'react-icons/fa6';
+import {FaEdit} from 'react-icons/fa' ;
 
-interface NoteProps {
-  id: string;
-  title: string;
-  content: string;
-  onEdit: () => void;
-  onDelete: () => void;
-}
 
-const Note: React.FC<NoteProps> = ({ id, title, content, onEdit, onDelete }) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
-    setPosition({ x: e.clientX, y: e.clientY });
+type NoteProps = {
+  note: {
+    id: number;
+    title: string;
+    description: string;
+    category?: string;
+    tags?: string[];
+    createdAt?: string; 
+    color: string;
   };
+};
+
+const Note: React.FC<NoteProps> = ({ note }) => {
+  const { dispatch } = useContext(NotesContext);
+
+const handleDelete = () => {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "¡No podrás revertir esto!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, ¡elimínalo!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Aquí puedes despachar la acción de eliminación
+      dispatch({ type: 'DELETE_NOTE', id: note.id });
+
+      // Mostrar un mensaje de éxito
+      Swal.fire({
+        title: "¡Eliminado!",
+        text: "Tu nota ha sido eliminada.",
+        icon: "success"
+      });
+    }
+  });
+};
 
   return (
-    <div
-      className="note"
-      draggable
-      onDragEnd={handleDrag}
-      style={{ top: position.y, left: position.x }}
-    >
-      <h2>{title}</h2>
-      <p>{content}</p>
-      <button onClick={onEdit}>Editar</button>
-      <button onClick={onDelete}>Eliminar</button>
+    <div className="note" style={{ backgroundColor: note.color }}>
+      <div className="note-header">
+        <h3>{note.title}</h3>
+        <div className="note-actions">
+          <button className="edit-btn"><FaEdit/></button>
+          <button className="delete-btn" onClick={handleDelete}><FaTrash/></button>
+        </div>
+      </div>
+      <p>{note.description}</p>
+      {note.category && <p><strong>Categoría:</strong> {note.category}</p>}
+      {note.tags && <p><strong>Etiquetas:</strong> {note.tags.join(', ')}</p>}
+      {note.createdAt && <p><strong>Fecha de creación:</strong> {new Date(note.createdAt).toLocaleString()}</p>}
     </div>
   );
 };

@@ -1,0 +1,12 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  padding: 20px;
+  background-color: #fafafa;
+}
