@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   animation: fadeIn 0.3s ease;
-  z-index: 1000; /* Aseguramos que esté encima de todo */
+  z-index: 2200; /* Aseguramos que esté encima de todo */
 }
 
 /* Animación del fondo */
@@ -32,7 +32,14 @@
   width: 90%;
   max-width: 500px; 
   animation: slideIn 0.3s ease;
-  z-index: 1001; /* Aseguramos que el modal esté por encima del overlay */
+  z-index: 2200; /* Aseguramos que el modal esté por encima del overlay */
+}
+textarea {
+  width: 100%; /* Hacer que ocupe todo el ancho del contenedor */
+  max-width: 482px; /* Limitar el ancho máximo al contenedor */
+  height: auto; /* Ajustar el alto automáticamente */
+  resize: vertical; /* Permitir solo el ajuste vertical */
+  overflow-wrap: break-word; /* Romper las palabras largas */
 }
 
 /* Animación del modal */

@@ -1,7 +1,34 @@
 import React, { useState, useContext } from 'react';
 import { NotesContext } from '../context/NoteContext';
 import '../assets/styles/NoteForm.css';
-import { colorPalette } from '../assets/utils/colors';
+
+
+// Almacenamos los colores ya usados para evitar duplicados
+const usedColors = new Set<string>();
+
+// Función para generar un color pastel aleatorio
+const generateRandomPastelColor = (): string => {
+  // Generar componentes RGB aleatorios en un rango pastel
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+
+  // Ajustar la luminosidad para que sea más pastel
+  const pastelR = Math.min(255, Math.floor((r + 255) / 2));
+  const pastelG = Math.min(255, Math.floor((g + 255) / 2));
+  const pastelB = Math.min(255, Math.floor((b + 255) / 2));
+
+  const newColor = `#${((1 << 24) + (pastelR << 16) + (pastelG << 8) + pastelB).toString(16).slice(1).toUpperCase()}`;
+
+  // Verificar si el color ya ha sido usado
+  if (usedColors.has(newColor)) {
+    return generateRandomPastelColor(); // Generar otro color si ya existe
+  }
+
+  // Guardamos el color generado para no repetirlo
+  usedColors.add(newColor);
+  return newColor;
+};
 
 type NoteFormProps = {
   closeModal: () => void;
@@ -18,15 +45,15 @@ type NoteFormProps = {
 
 const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
   const { dispatch } = useContext(NotesContext);
-  
+
   // Estados para los campos de la nota
   const [title, setTitle] = useState(noteToEdit?.title || '');
   const [description, setDescription] = useState(noteToEdit?.description || '');
   const [category, setCategory] = useState(noteToEdit?.category || '');
   const [tags, setTags] = useState(noteToEdit?.tags?.join(', ') || '');
 
-  // Generar un color aleatorio solo si es una nueva nota
-  const noteColor = noteToEdit?.color || colorPalette[Math.floor(Math.random() * colorPalette.length)];
+  // Generar un color pastel único solo si es una nueva nota
+  const noteColor = noteToEdit?.color || generateRandomPastelColor();
 
   const handleSubmit = () => {
     const currentTimestamp = new Date().toISOString();
@@ -41,12 +68,12 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
           description,
           category,
           tags: tags.split(', '),
-          createdAt: noteToEdit.createdAt, // Mantener la fecha de creación original
-          color: noteToEdit.color, // Mantener el color original
+          createdAt: noteToEdit.createdAt,
+          color: noteToEdit.color,
         },
       });
     } else {
-      // Agregar nueva nota con un color aleatorio
+      // Agregar nueva nota con un color pastel único
       dispatch({
         type: 'ADD_NOTE',
         note: {
@@ -55,7 +82,7 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
           category,
           tags: tags.split(', '),
           createdAt: currentTimestamp,
-          color: noteColor, // Usar color aleatorio solo para nuevas notas
+          color: noteColor,
         },
       });
     }

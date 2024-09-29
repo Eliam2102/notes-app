@@ -10,19 +10,21 @@ const NoteBoard: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [noteToEdit, setNoteToEdit] = useState(null);
 
-  const handleEdit = (note) => {
+  const handleEdit = (note: React.SetStateAction<null>) => {
     setNoteToEdit(note);
     setShowForm(true);
   };
 
   return (
     <div className="note-board">
-      <button className="add-note-btn" onClick={() => {
-        setNoteToEdit(null); // Limpiar la edición cuando agregamos una nueva nota
-        setShowForm(true);
-      }}>
-        Agregar Nota
-      </button>
+      <div className='btn-add'>
+        <button className="add-note-btn" onClick={() => {
+          setNoteToEdit(null); 
+          setShowForm(true);
+        }}>
+          Agregar Nota
+        </button>
+      </div>
 
       {showForm && (
         <NoteForm

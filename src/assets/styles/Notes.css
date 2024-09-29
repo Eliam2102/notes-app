@@ -1,29 +1,33 @@
 .note {
-  background-color: #f8e1d4;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .note:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
 }
 
-.note-header {
-  display: flex;
-  justify-content: space-between;
+.note-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-family: 'Noto Sans', sans-serif;
 }
 
-.note-actions button {
+.edit-btn, .delete-btn {
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: transparent;
   border: none;
-  background: none;
   cursor: pointer;
+  color: #555;
+  font-size: 16px;
 }
 
 .edit-btn:hover, .delete-btn:hover {
-  text-decoration: underline;
+  color: #C5705D;
 }

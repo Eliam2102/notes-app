@@ -11,7 +11,7 @@ const GreetComponent: React.FC = () => {
     }else if (hour < 18 ){
         return 'Buenas tardes! ';
     }else{
-        return 'Buenas nohces! ';
+        return 'Buenas noches! ';
     }
 };
     return (

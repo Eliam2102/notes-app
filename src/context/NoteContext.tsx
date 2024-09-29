@@ -6,6 +6,7 @@ type Note = {
   description: string;
   category?: string;
   tags?: string[];
+  createdAt: string;
 };
 
 type Collection = {
@@ -72,7 +73,7 @@ const notesReducer = (state: State, action: Action): State => {
   }
 };
 
-const NotesProvider: React.FC = ({ children }) => {
+const NotesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(notesReducer, initialState);
 
   return (
