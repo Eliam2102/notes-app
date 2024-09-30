@@ -60,9 +60,9 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
       if (result.isConfirmed) {
         onEdit(note);
         Swal.fire({
-          title: "¡Editando!",
-          text: "Estás en el proceso de edición.",
-          icon: "success"
+          title: "¡Regresando!",
+          text: "Por favor, revisa que no olvides nada",
+          icon: "question"
         });
       }
     });
