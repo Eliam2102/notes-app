@@ -14,12 +14,6 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-.action-icons img {
-  width: 24px; 
-  height: 24px;
-  object-fit: contain;
-  border-radius: 50%; 
-}
 .note h3 {
   white-space: nowrap;
   overflow: hidden;
@@ -36,15 +30,36 @@
   max-height: 80px; /* Limita la altura del párrafo */
 }
 
+.action-icons img {
+  width: 24px; 
+  height: 24px;
+  object-fit: contain;
+  border-radius: 50%; 
+}
+.action-icons button {
+  width: 30px;           /* Ancho del botón */
+  height: 30px;          /* Alto del botón */
+  background-color: none; /* Fondo negro */
+  border: solid 2px black;          /* Quitar bordes */
+  border-radius: 50%;    /* Hacerlo circular */
+  display: flex;         /* Flexbox para centrar el contenido */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center;   /* Centrar verticalmente */
+  cursor: pointer;       /* Cambiar el cursor al pasar por encima */
+  opacity: 1;          /* Hacer el fondo algo transparente */
+}
 /* Contenedor para los botones de acción (solo íconos) */
 .action-icons {
   display: none;
   position: absolute;
-  top: -23px;
+  top: -30px;
   right: 10px;
   z-index: 1;
 }
-
+/* Opcional: Cambiar el fondo al pasar el mouse sobre los botones */
+.action-icons button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
 /* Mostrar los botones de acción solo al hacer hover sobre la nota */
 .note:hover .action-icons {
   display: flex;
