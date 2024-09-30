@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { FaTrash, FaEdit } from 'react-icons/fa';
 import { Box, Modal, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Swal from 'sweetalert2';
-import { NotesContext } from '../context/NoteContext'; // Asegúrate de que este import está correcto
+import { NotesContext } from '../context/NoteContext';
 import '../assets/styles/Notes.css';
+import iconDelete from '../assets/img/delete-btn.png';
+import iconEdit from '../assets/img/edit-btn.png';
 
 type NoteProps = {
   note: {
@@ -20,11 +21,11 @@ type NoteProps = {
 };
 
 const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
-  const { dispatch } = useContext(NotesContext); // Reintroduzco el uso del contexto
+  const { dispatch } = useContext(NotesContext);
   const [open, setOpen] = useState(false);
-
-  // Función para eliminar la nota
+  
   const handleDelete = () => {
+    handleClose();
     Swal.fire({
       title: "¿Estás seguro?",
       text: "¡No podrás revertir esto!",
@@ -35,8 +36,7 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
       confirmButtonText: "Sí, ¡elimínalo!",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch({ type: 'DELETE_NOTE', id: note.id }); // Lógica de eliminación usando dispatch
-
+        dispatch({ type: 'DELETE_NOTE', id: note.id });
         Swal.fire({
           title: "¡Eliminado!",
           text: "Tu nota ha sido eliminada.",
@@ -46,86 +46,119 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
     });
   };
 
-  // Funciones para abrir y cerrar el modal
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <>
       {/* Preview de la nota */}
-      <div className="note" style={{ backgroundColor: note.color }} onClick={handleOpen}>
-        <div className="note-header">
-          <h3>{note.title}</h3>
+      <div className="note" style={{ backgroundColor: note.color }}>
+        <div className="note-content" onClick={handleOpen}>
+          <div className="note-header">
+            <h3>{note.title}</h3>
+          </div>
+          <p>
+            {note.description.length > 100
+              ? `${note.description.substring(0, 100)}...`
+              : note.description}
+          </p>
         </div>
-        <p>{note.description.length > 100 ? `${note.description.substring(0, 100)}...` : note.description}</p>
+
+        {/* Íconos de acción (solo visibles en hover) */}
+        <div className="action-icons">
+          <button className="icon-btn" onClick={() => onEdit(note)}>
+            <img src={iconEdit} alt="Edit" />
+          </button>
+          <button className="icon-btn" onClick={handleDelete}>
+            <img src={iconDelete} alt="Delete" />
+          </button>
+        </div>
       </div>
 
-      {/* Modal de Material UI */}
+      {/* Modal para ver el contenido completo de la nota */}
       <Modal open={open} onClose={handleClose}>
-        <Box sx={modalStyles}>
-          {/* Botón de cerrar */}
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={closeButtonStyles}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            borderRadius: '8px',
+            maxHeight: { xs: '90vh', sm: '80vh' },
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            p: { xs: 2, sm: 3, md: 4 },
+          }}
+        >
+          <Box
+            sx={{
+              width: { xs: 'calc(100% - 5px)', sm: 'calc(100% - 5px)', md: 600 }, // Ancho mayor y menos separación
+              mx: 'auto', // Centrar el contenido
+              p: 2, // Padding interno
+            }}
           >
-            <CloseIcon />
-          </IconButton>
+            <IconButton
+              aria-label="close"
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: '#000',
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
 
-          {/* Contenido del modal */}
-          <Typography variant="h6" component="h2" style={{ fontFamily: 'Noto Sans' }}>
-            {note.title}
-          </Typography>
-          <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
-            {note.description}
-          </Typography>
-          {note.category && (
-            <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
-              <strong>Categoría:</strong> {note.category}
+            <Typography variant="h6" component="h2" style={{ fontFamily: 'Noto Sans' }}>
+              {note.title}
             </Typography>
-          )}
-          {note.tags && (
-            <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
-              <strong>Etiquetas:</strong> {note.tags.join(', ')}
-            </Typography>
-          )}
-          {note.createdAt && (
-            <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
-              <strong>Fecha de creación:</strong> {new Date(note.createdAt).toLocaleString()}
-            </Typography>
-          )}
 
-          {/* Botones de Editar y Eliminar */}
-          <div style={{ marginTop: '20px' }}>
-            <button className="edit-btn" onClick={() => onEdit(note)}><FaEdit /> Editar</button>
-            <button className="delete-btn" onClick={handleDelete}><FaTrash /> Eliminar</button>
-          </div>
+            <Typography
+              sx={{ mt: 2 }}
+              style={{
+                fontFamily: 'Noto Sans',
+                whiteSpace: 'pre-wrap',
+                overflowY: 'auto',
+                maxHeight: '300px'
+              }}
+            >
+              {note.description}
+            </Typography>
+
+            {note.category && (
+              <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
+                <strong>Categoría:</strong> {note.category}
+              </Typography>
+            )}
+            {note.tags && (
+              <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
+                <strong>Etiquetas:</strong> {note.tags.join(', ')}
+              </Typography>
+            )}
+            {note.createdAt && (
+              <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
+                <strong>Fecha de creación:</strong>{' '}
+                {new Date(note.createdAt).toLocaleString()}
+              </Typography>
+            )}
+
+            <div className="modal-buttons">
+              <button className="edit-btn" onClick={() => onEdit(note)}>
+                <img src={iconEdit} alt="Edit" /> Editar
+              </button>
+              <button className="delete-btn" onClick={handleDelete}>
+                <img src={iconDelete} alt="Delete" />Eliminar
+              </button>
+            </div>
+          </Box>
         </Box>
       </Modal>
     </>
   );
-};
-
-// Estilos del modal
-const modalStyles = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: '8px',
-  zIndex: 1
-};
-
-// Estilos del botón de cierre
-const closeButtonStyles = {
-  position: 'absolute',
-  right: 8,
-  top: 8,
-  color: '#000',
 };
 
 export default Note;

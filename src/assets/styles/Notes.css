@@ -1,33 +1,98 @@
+/* Estilos de la nota */
 .note {
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   font-family: 'Noto Sans', sans-serif;
+  position: relative;
 }
 
 .note:hover {
   transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-.note-header h3 {
-  margin: 0;
+.action-icons img {
+  width: 24px; 
+  height: 24px;
+  object-fit: contain;
+  border-radius: 50%; 
+}
+.note h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; 
+  max-height: 80px;
+}
+/* Texto de descripción en la nota */
+.note p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; /* Asegura que no se desborde el contenedor */
+  max-height: 80px; /* Limita la altura del párrafo */
+}
+
+/* Contenedor para los botones de acción (solo íconos) */
+.action-icons {
+  display: none;
+  position: absolute;
+  top: -23px;
+  right: 10px;
+  z-index: 1;
+}
+
+/* Mostrar los botones de acción solo al hacer hover sobre la nota */
+.note:hover .action-icons {
+  display: flex;
+  gap: 3px;
+}
+
+/* Estilos para los botones de íconos en la nota (hover) */
+.icon-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #555;
   font-size: 18px;
-  font-family: 'Noto Sans', sans-serif;
 }
 
-.edit-btn, .delete-btn {
-  margin-top: 10px;
-  margin-right: 10px;
-  padding: 5px 10px;
+.icon-btn:hover {
+  color: #C5705D;
+}
+
+/* Estilos para los botones dentro del modal (con texto e íconos) */
+.modal-buttons {
+  margin-top: 30px;
+}
+.modal-buttons img {
+  width: 25px; 
+  height: 25px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.modal-buttons .edit-btn,
+.modal-buttons .delete-btn {
+  padding: 8px 16px;
   background-color: transparent;
   border: none;
   cursor: pointer;
   color: #555;
   font-size: 16px;
+  display: flex;
+  align-items: center;
 }
 
-.edit-btn:hover, .delete-btn:hover {
+.modal-buttons .edit-btn:hover,
+.modal-buttons .delete-btn:hover {
   color: #C5705D;
+}
+
+.modal-buttons .edit-btn svg,
+.modal-buttons .delete-btn svg {
+  margin-right: 8px;
 }

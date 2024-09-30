@@ -1,6 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { NotesContext } from '../context/NoteContext';
 import '../assets/styles/NoteForm.css';
+import ConfirmDialog from './ConfirmDialog';
+import iconSave from '../assets/img/save-btn.png';
+import iconCancel from '../assets/img/cancel-btn.png'
 
 
 // Almacenamos los colores ya usados para evitar duplicados
@@ -45,21 +48,20 @@ type NoteFormProps = {
 
 const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
   const { dispatch } = useContext(NotesContext);
-
-  // Estados para los campos de la nota
   const [title, setTitle] = useState(noteToEdit?.title || '');
   const [description, setDescription] = useState(noteToEdit?.description || '');
   const [category, setCategory] = useState(noteToEdit?.category || '');
   const [tags, setTags] = useState(noteToEdit?.tags?.join(', ') || '');
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
-  // Generar un color pastel único solo si es una nueva nota
-  const noteColor = noteToEdit?.color || generateRandomPastelColor();
+  const handleSave = () => {
+    setShowConfirmDialog(true); // Muestra el diálogo de confirmación
+  };
 
-  const handleSubmit = () => {
+  const handleConfirm = () => {
     const currentTimestamp = new Date().toISOString();
 
     if (noteToEdit) {
-      // Editar nota existente, manteniendo el color original
       dispatch({
         type: 'EDIT_NOTE',
         note: {
@@ -73,7 +75,6 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
         },
       });
     } else {
-      // Agregar nueva nota con un color pastel único
       dispatch({
         type: 'ADD_NOTE',
         note: {
@@ -82,12 +83,16 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
           category,
           tags: tags.split(', '),
           createdAt: currentTimestamp,
-          color: noteColor,
+          color: generateRandomPastelColor(),
         },
       });
     }
 
     closeModal();
+  };
+
+  const handleCancel = () => {
+    setShowConfirmDialog(false); // Cierra el diálogo de confirmación
   };
 
   return (
@@ -118,10 +123,19 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
           onChange={(e) => setTags(e.target.value)}
         />
         <div className="actions">
-          <button onClick={handleSubmit}>Guardar</button>
-          <button onClick={closeModal}>Cancelar</button>
+          <button onClick={handleSave}><img src={iconSave} alt="guardar" />Guardar</button>
+          <button onClick={closeModal}><img src={iconCancel} alt="cancelar" />Cancelar</button>
         </div>
       </div>
+
+      {showConfirmDialog && (
+        <ConfirmDialog
+          message="¿Estás seguro de que deseas guardar los cambios?"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+          onClose={handleCancel}
+        />
+      )}
     </div>
   );
 };

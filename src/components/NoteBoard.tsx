@@ -4,6 +4,7 @@ import NoteCollection from './NoteCollection';
 import NoteForm from './NoteForm';
 import { NotesContext } from '../context/NoteContext';
 import '../assets/styles/NoteBoard.css';
+import iconAddNote from '../assets/img/add_note.png'
 
 const NoteBoard: React.FC = () => {
   const { state } = useContext(NotesContext);
@@ -22,7 +23,7 @@ const NoteBoard: React.FC = () => {
           setNoteToEdit(null); 
           setShowForm(true);
         }}>
-          Agregar Nota
+          <img src={iconAddNote} alt="guardarNota" />Agregar Nota
         </button>
       </div>
 
