@@ -46,6 +46,28 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
     });
   };
 
+  const handleEdit = () => {
+    handleClose();
+    Swal.fire({
+      title: "¿Editar esta nota?",
+      text: "Puedes cambiar el contenido de esta nota.",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, ¡editar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onEdit(note);
+        Swal.fire({
+          title: "¡Editando!",
+          text: "Estás en el proceso de edición.",
+          icon: "success"
+        });
+      }
+    });
+  };
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -66,7 +88,7 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
 
         {/* Íconos de acción (solo visibles en hover) */}
         <div className="action-icons">
-          <button className="icon-btn" onClick={() => onEdit(note)}>
+          <button className="icon-btn" onClick={handleEdit}>
             <img src={iconEdit} alt="Edit" />
           </button>
           <button className="icon-btn" onClick={handleDelete}>
@@ -95,9 +117,9 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
         >
           <Box
             sx={{
-              width: { xs: 'calc(100% - 5px)', sm: 'calc(100% - 5px)', md: 600 }, // Ancho mayor y menos separación
-              mx: 'auto', // Centrar el contenido
-              p: 2, // Padding interno
+              width: { xs: 'calc(100% - 5px)', sm: 'calc(100% - 5px)', md: 600 },
+              mx: 'auto',
+              p: 2,
             }}
           >
             <IconButton
@@ -147,7 +169,7 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
             )}
 
             <div className="modal-buttons">
-              <button className="edit-btn" onClick={() => onEdit(note)}>
+              <button className="edit-btn" onClick={handleEdit}>
                 <img src={iconEdit} alt="Edit" /> Editar
               </button>
               <button className="delete-btn" onClick={handleDelete}>
