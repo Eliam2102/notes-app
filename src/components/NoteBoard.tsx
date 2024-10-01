@@ -23,7 +23,7 @@ const NoteBoard: React.FC = () => {
           setNoteToEdit(null); 
           setShowForm(true);
         }}>
-          <img src={iconAddNote} alt="guardarNota" />Agregar Nota
+          <img src={iconAddNote} alt="guardarNota" /><span>Agregar Nota</span>
         </button>
       </div>
 

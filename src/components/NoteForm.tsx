@@ -55,7 +55,7 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const handleSave = () => {
-    setShowConfirmDialog(true); // Muestra el diálogo de confirmación
+    setShowConfirmDialog(true);
   };
 
   const handleConfirm = () => {

@@ -80,8 +80,8 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
             <h3>{note.title}</h3>
           </div>
           <p>
-            {note.description.length > 100
-              ? `${note.description.substring(0, 100)}...`
+            {note.description.length > 580
+              ? `${note.description.substring(0, 580)}...`
               : note.description}
           </p>
         </div>
