@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+*{
+  font-family: 'Noto Sans', sans-serif;
+}
+
 /* Estilos principales para .note-board */
 .note-board {
   padding: 20px;
@@ -10,8 +16,8 @@
 /* Grid de notas responsivo */
 .notes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Grid adaptable */
+  gap: 25px; /* Espaciado entre notas */
   justify-content: center; /* Centra el grid horizontalmente */
 }
 
@@ -42,16 +48,30 @@
   vertical-align: middle;
 }
 
+/* Estilo para el grid cuando no hay notas */
+.empty-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 2rem; /* Tamaño de fuente más grande */
+  color: #b0b0b0; /* Gris bajito */
+  text-align: center;
+  margin-top: 180px;
+}
+
 /* Botón flotante en pantallas pequeñas */
 @media (max-width: 768px) {
   /* Centrar .notes-grid en dispositivos móviles */
   .notes-grid {
     justify-content: center; /* Centra la grilla */
   }
+
   /* Ocultar el texto en pantallas pequeñas */
   .add-note-btn span {
     display: none; /* Oculta el texto del botón */
   }
+
   /* Mostrar el botón flotante solo en pantallas móviles */
   .add-note-btn {
     background-color: #f7c5a0;
@@ -82,7 +102,8 @@
     color: #fff;
   }
 }
-  
+
+
   /* Estilos par que el contenedor de las notas crezca confrme se agregan */
   /* EL DETALLE ES Que SE Inicializa pequeño y queda parte balco que se tapa conforme crece */
   /* .note-board {

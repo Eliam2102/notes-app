@@ -1,4 +1,9 @@
 /* Estilos de la nota */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+*{
+  font-family: 'Noto Sans', sans-serif;
+}
 .note {
   padding: 10px;
   margin-left: 10px;
@@ -13,7 +18,7 @@
 .note:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-}
+} 
 
 .note h3 {
   white-space: nowrap;

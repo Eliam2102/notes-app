@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+*{
+  font-family: 'Noto Sans', sans-serif;
+}
+
 .toolbar {
     background-color: #f1f1f1;
     padding: 20px;
@@ -23,3 +29,4 @@
     border: none;
     border-radius: 5px;
   }
+ 

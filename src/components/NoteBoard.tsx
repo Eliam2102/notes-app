@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import Note from './Note';
 import NoteCollection from './NoteCollection';
 import NoteForm from './NoteForm';
+import { Tooltip } from '@mui/material';
 import { NotesContext } from '../context/NoteContext';
 import '../assets/styles/NoteBoard.css';
 import iconAddNote from '../assets/img/add_note.png'
@@ -19,12 +20,14 @@ const NoteBoard: React.FC = () => {
   return (
     <div className="note-board">
       <div className='btn-add'>
+        <Tooltip title="Agregar una nota nueva" arrow>
         <button className="add-note-btn" onClick={() => {
           setNoteToEdit(null); 
           setShowForm(true);
         }}>
           <img src={iconAddNote} alt="guardarNota" /><span>Agregar Nota</span>
         </button>
+        </Tooltip>
       </div>
 
       {showForm && (

@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Box, Modal, Typography, IconButton } from '@mui/material';
+import { Box, Modal, Typography, IconButton, Tooltip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Swal from 'sweetalert2';
 import { NotesContext } from '../context/NoteContext';
 import '../assets/styles/Notes.css';
 import iconDelete from '../assets/img/delete-btn.png';
 import iconEdit from '../assets/img/edit-btn.png';
+
 
 type NoteProps = {
   note: {
@@ -88,12 +89,16 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
 
         {/* Íconos de acción (solo visibles en hover) */}
         <div className="action-icons">
+          <Tooltip title ="Editar nota" arrow>
           <button className="icon-btn" onClick={handleEdit}>
             <img src={iconEdit} alt="Edit" />
           </button>
+          </Tooltip>
+          <Tooltip title="Eliminar nota" arrow>
           <button className="icon-btn" onClick={handleDelete}>
             <img src={iconDelete} alt="Delete" />
           </button>
+          </Tooltip>
         </div>
       </div>
 
