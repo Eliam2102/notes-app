@@ -24,7 +24,7 @@ type Action =
   | { type: 'EDIT_NOTE'; note: Note }
   | { type: 'DELETE_NOTE'; id: number }
   | { type: 'ADD_TO_COLLECTION'; noteId: number; collectionId: number }
-  | { type: 'REORDER_NOTE'; startId: number; endId: number };
+  | { type: 'REORDER_NOTES'; startId: number; endId: number };
 
 const initialState: State = {
   notes: [],
@@ -69,7 +69,7 @@ const notesReducer = (state: State, action: Action): State => {
             : collection
         ),
       }; }
-      case 'REORDER_NOTE': {
+      case 'REORDER_NOTES': {
         const updatedNotes = [...state.notes];
         
         const startIndex = updatedNotes.findIndex(note => note.id === action.startId);

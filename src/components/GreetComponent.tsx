@@ -16,7 +16,7 @@ const GreetComponent: React.FC = () => {
 };
     return (
         <div>
-            <h1>{getGreeting()}</h1>
+            <h2>{getGreeting()}</h2>
         </div>
     );
 };

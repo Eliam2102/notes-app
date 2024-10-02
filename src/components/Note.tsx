@@ -77,15 +77,19 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
       {/* Preview de la nota */}
       <div className="note" style={{ backgroundColor: note.color }}>
         <div className="note-content" onClick={handleOpen} style={{ backgroundColor: note.color }}>
+          {/* Título de la nota en la parte superior */}
           <div className="note-header">
             <h3>{note.title}</h3>
           </div>
+
+          {/* Descripción de la nota */}
           <p>
             {note.description.length > 580
               ? `${note.description.substring(0, 580)}...`
               : note.description}
           </p>
         </div>
+              
 
         {/* Íconos de acción (solo visibles en hover) */}
         <div className="action-icons">
@@ -141,7 +145,7 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
             </IconButton>
 
             <Typography variant="h6" component="h2" style={{ fontFamily: 'Noto Sans' }}>
-              {note.title}
+              <strong>{note.title}</strong>
             </Typography>
 
             <Typography

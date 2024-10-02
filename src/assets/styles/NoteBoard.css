@@ -63,7 +63,7 @@
   opacity: 0.7;
 }
 
-/* Botón flotante en pantallas pequeñas */
+/* Botón flotante en pantallas pequeñas para se vea como móvil*/
 @media (max-width: 768px) {
   .notes-grid {
     justify-content: center;
@@ -78,29 +78,32 @@
     background-color: #f7c5a0;
     border: none;
     width: 60px;
-    height: 60px;
+    height: 60px; 
+    padding: 20px;
     border-radius: 50%;
     cursor: pointer;
     color: #fff;
     position: fixed;
-    bottom: 35px;
+    bottom: 75px;
     right: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    padding: 0;
-  }
+    margin: 20px; 
+}
+
 
   .add-note-btn img {
-    display: none;
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin-right: 1px;
   }
 
-  .add-note-btn::before {
-    content: "+";
-    font-size: 24px;
-    color: #fff;
+  .add-note-btn span::before {
+   display: none;
   }
 }
 

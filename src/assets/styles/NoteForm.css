@@ -16,7 +16,7 @@
   justify-content: center;
   align-items: center;
   animation: fadeIn 0.3s ease;
-  z-index: 2200; /* Aseguramos que esté encima de todo */
+  z-index: 2200;
 }
 
 /* Animación del fondo */
@@ -32,7 +32,7 @@
 /* Estilos del Modal */
 .note-form {
   background-color: white; 
-  padding: 30px; /* Aumentar el padding del modal */
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
   width: 90%;
@@ -185,4 +185,11 @@ textarea {
 
 .chip-container .chip:hover {
   opacity: 0.8;
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 600px) {
+  .note-form {
+    margin: 0 20px;
+  }
 }
