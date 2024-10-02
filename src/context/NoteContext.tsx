@@ -1,3 +1,4 @@
+import { arrayMove } from '@dnd-kit/sortable';
 import React, { createContext, useReducer } from 'react';
 
 type Note = {
@@ -58,8 +59,8 @@ const notesReducer = (state: State, action: Action): State => {
         ...state,
         notes: state.notes.filter(note => note.id !== action.id),
       };
-    case 'ADD_TO_COLLECTION':
-      { const noteToAdd = state.notes.find(note => note.id === action.noteId);
+    case 'ADD_TO_COLLECTION': {
+      const noteToAdd = state.notes.find(note => note.id === action.noteId);
       if (!noteToAdd) return state;
       return {
         ...state,
@@ -68,24 +69,21 @@ const notesReducer = (state: State, action: Action): State => {
             ? { ...collection, notes: [...collection.notes, noteToAdd] }
             : collection
         ),
-      }; }
-      case 'REORDER_NOTES': {
-        const updatedNotes = [...state.notes];
-        
-        const startIndex = updatedNotes.findIndex(note => note.id === action.startId);
-        const endIndex = updatedNotes.findIndex(note => note.id === action.endId);
-        
-        if (startIndex === -1 || endIndex === -1) return state; // Verificación adicional
+      };
+    }
+    case 'REORDER_NOTES': {
+      const startIndex = state.notes.findIndex(note => note.id === action.startId);
+      const endIndex = state.notes.findIndex(note => note.id === action.endId);
       
-        const [movedNote] = updatedNotes.splice(startIndex, 1);
-        updatedNotes.splice(endIndex, 0, movedNote);
-      
-        return {
-          ...state,
-          notes: updatedNotes,
-        };
-      }
-      
+      if (startIndex === -1 || endIndex === -1) return state; // Verificación adicional
+    
+      const updatedNotes = arrayMove(state.notes, startIndex, endIndex);
+    
+      return {
+        ...state,
+        notes: updatedNotes,
+      };
+  }  
     default:
       return state;
   }

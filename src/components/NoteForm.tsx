@@ -17,10 +17,9 @@ const generateRandomPastelColor = (): string => {
   const pastelG = Math.min(255, Math.floor((g + 255) / 2));
   const pastelB = Math.min(255, Math.floor((b + 255) / 2));
 
+  // creacion del nuevo color
   const newColor = `#${((1 << 24) + (pastelR << 16) + (pastelG << 8) + pastelB).toString(16).slice(1).toUpperCase()}`;
 
-
-  // Verificar si el color ya ha sido usado
   
   // Verificar si el color ya ha sido usado
   if (usedColors.has(newColor)) {
@@ -31,9 +30,11 @@ const generateRandomPastelColor = (): string => {
 };
 
 // Colores pastel estáticos para las categorías y tags
+// esto solo es para un fin más estetico
 const categoryColors = ['#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9'];
 const tagColors = ['#BAE1FF', '#FFBAF0', '#FFABAB', '#FFC3A0'];
 
+// propiedades del NoteForm
 type NoteFormProps = {
   closeModal: () => void;
   noteToEdit?: {
@@ -55,37 +56,44 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
   const [tags, setTags] = useState(noteToEdit?.tags || []);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
+  //DECLARAMOS LOS TAGS Y CATEGORYS QEU HAB´RAN POR DEFAULT EN CASO DE UN DESPLIEGUE SE PONDRIÁN OTRAS O LAS QUE SE PRESENTE NE LOS REQUISITOS
   const categories = ['Trabajo', 'Personal', 'Estudio', 'Hobby'];
   const predefinedTags = ['Urgente', 'Importante', 'Revisar', 'Completar'];
 
+  // FUNCION PARA SELECCIONA CATEGORIA
   const handleCategorySelect = (cat: string) => {
     if (!selectedCategory.includes(cat)) {
       setSelectedCategory([...selectedCategory, cat]);
     }
   };
 
+  //FUNCIÓN PARA SELECCIONAR TAGS
   const handleTagSelect = (tag: string) => {
     if (!tags.includes(tag)) {
       setTags([...tags, tag]);
     }
   };
 
+  //FUNCION PARA ELIMINAR CATEGORIA SELECCIONADA
   const handleCategoryRemove = (cat: string) => {
     setSelectedCategory(selectedCategory.filter(item => item !== cat));
   };
 
+  //FUNCION PARA REMOVER TAGS SELECCIONADOS
   const handleTagRemove = (tag: string) => {
     setTags(tags.filter(item => item !== tag));
   };
 
+  //ABRIR EL MMODAL SI DECIDE SI AGREGAR NOTA
   const handleSave = () => {
     setShowConfirmDialog(true);
   };
 
   const handleConfirm = () => {
     const currentTimestamp = new Date().toISOString();
-
+    //CICLO IF NOS FACILITA LA ELECCIÓN DEPENDINEDO LO QUE SE RECIBE 
     if (noteToEdit) {
+      // USAMOS LOS DISPARADORES ESTABLECIDOS EN EL CONTEXTO
       dispatch({
         type: 'EDIT_NOTE',
         note: {
@@ -99,6 +107,7 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
         },
       });
     } else {
+      // USAMOS LOS DISPARADORES ESTABLECIDOS EN EL CONTEXTO
       dispatch({
         type: 'ADD_NOTE',
         note: {
@@ -115,6 +124,7 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
     closeModal();
   };
 
+  //DECIDE NO AGREGAR NADA, SE CIERRA EL DIALOGO DE CONFIRMACIÓN QEU ES EL PRIMERO QUE SALE
   const handleCancel = () => {
     setShowConfirmDialog(false); // Cierra el diálogo de confirmación
   };
@@ -123,12 +133,14 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
     <div className="modal-overlay">
       <div className="note-form">
         <h3>{noteToEdit ? 'Editar Nota' : 'Agregar Nota'}</h3>
+        <strong>Título: </strong>
         <input
           type="text"
           placeholder="Título"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+         <strong>Descripción: </strong>
         <textarea
           placeholder="Descripción"
           value={description}
