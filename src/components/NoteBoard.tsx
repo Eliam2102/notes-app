@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import Note from './Note';
-import NoteCollection from './NoteCollection';
 import NoteForm from './NoteForm';
 import { Tooltip } from '@mui/material';
 import { NotesContext } from '../context/NoteContext';
@@ -21,12 +20,12 @@ const NoteBoard: React.FC = () => {
     <div className="note-board">
       <div className='btn-add'>
         <Tooltip title="Agregar una nota nueva" arrow>
-        <button className="add-note-btn" onClick={() => {
-          setNoteToEdit(null); 
-          setShowForm(true);
-        }}>
-          <img src={iconAddNote} alt="guardarNota" /><span>Agregar Nota</span>
-        </button>
+          <button className="add-note-btn" onClick={() => {
+            setNoteToEdit(null); 
+            setShowForm(true);
+          }}>
+            <img src={iconAddNote} alt="guardarNota" /><span>Agregar Nota</span>
+          </button>
         </Tooltip>
       </div>
 
@@ -38,12 +37,13 @@ const NoteBoard: React.FC = () => {
       )}
 
       <div className="notes-grid">
-        {state.notes.map(note => (
-          <Note key={note.id} note={note} onEdit={handleEdit} />
-        ))}
-        {state.collections.map(collection => (
-          <NoteCollection key={collection.id} collection={collection} />
-        ))}
+        {state.notes.length === 0 ? (
+          <p className="no-notes-message">Aún no hay notas</p> 
+        ) : (
+          state.notes.map(note => (
+            <Note key={note.id} note={note} onEdit={handleEdit} />
+          ))
+        )}
       </div>
     </div>
   );

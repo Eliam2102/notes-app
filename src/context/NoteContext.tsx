@@ -23,7 +23,8 @@ type Action =
   | { type: 'ADD_NOTE'; note: Omit<Note, 'id'> }
   | { type: 'EDIT_NOTE'; note: Note }
   | { type: 'DELETE_NOTE'; id: number }
-  | { type: 'ADD_TO_COLLECTION'; noteId: number; collectionId: number };
+  | { type: 'ADD_TO_COLLECTION'; noteId: number; collectionId: number }
+  | { type: 'REORDER_NOTE'; startId: number; endId: number };
 
 const initialState: State = {
   notes: [],
@@ -68,6 +69,23 @@ const notesReducer = (state: State, action: Action): State => {
             : collection
         ),
       }; }
+      case 'REORDER_NOTE': {
+        const updatedNotes = [...state.notes];
+        
+        const startIndex = updatedNotes.findIndex(note => note.id === action.startId);
+        const endIndex = updatedNotes.findIndex(note => note.id === action.endId);
+        
+        if (startIndex === -1 || endIndex === -1) return state; // Verificación adicional
+      
+        const [movedNote] = updatedNotes.splice(startIndex, 1);
+        updatedNotes.splice(endIndex, 0, movedNote);
+      
+        return {
+          ...state,
+          notes: updatedNotes,
+        };
+      }
+      
     default:
       return state;
   }

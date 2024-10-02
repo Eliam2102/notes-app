@@ -76,7 +76,7 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
     <>
       {/* Preview de la nota */}
       <div className="note" style={{ backgroundColor: note.color }}>
-        <div className="note-content" onClick={handleOpen}>
+        <div className="note-content" onClick={handleOpen} style={{ backgroundColor: note.color }}>
           <div className="note-header">
             <h3>{note.title}</h3>
           </div>
@@ -110,7 +110,7 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            bgcolor: 'background.paper',
+            bgcolor: note.color,
             boxShadow: 24,
             borderRadius: '8px',
             maxHeight: { xs: '90vh', sm: '80vh' },
@@ -122,7 +122,7 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
         >
           <Box
             sx={{
-              width: { xs: 'calc(100% - 5px)', sm: 'calc(100% - 5px)', md: 600 },
+              width: { xs: '85vw', sm: '75vw', md: '60vw' },
               mx: 'auto',
               p: 2,
             }}

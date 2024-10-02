@@ -13,6 +13,7 @@
   height: 200px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .note:hover {
@@ -59,9 +60,12 @@
 .action-icons {
   display: none;
   position: absolute;
-  top: 0px;
+  top: -12px;
   right: 10px;
   z-index: 1;
+}
+.action-icons button {
+  background-color: #ffff;
 }
 /* Opcional: Cambiar el fondo al pasar el mouse sobre los botones */
 .action-icons button:hover {
@@ -117,4 +121,14 @@
 .modal-buttons .edit-btn svg,
 .modal-buttons .delete-btn svg {
   margin-right: 8px;
+}
+
+.note-footer {
+
+  background-color: transparent;
+  padding: 10px;
+  text-align: center;
+  color: #000;
+  font-weight: bold;
+  margin-top: auto; 
 }
