@@ -76,6 +76,7 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
     <>
       {/* Preview de la nota */}
       <div className="note" style={{ backgroundColor: note.color }}>
+        {/* para los colores random, ponemos el style para que reciba el colo igual que la nota asi mismo el qeu recibe la nota lo recibe */}
         <div className="note-content" onClick={handleOpen} style={{ backgroundColor: note.color }}>
           {/* Título de la nota en la parte superior */}
           <div className="note-header">
@@ -84,8 +85,9 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
 
           {/* Descripción de la nota */}
           <p>
-            {note.description.length > 700
-              ? `${note.description.substring(0, 700)}...`
+            {/* limitamos a que muestre nada  más hasta 650 caracteres en el preview */}
+            {note.description.length > 650
+              ? `${note.description.substring(0, 650)}...`
               : note.description}
           </p>
         </div>

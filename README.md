@@ -1,50 +1,39 @@
-# React + TypeScript + Vite
+# NOTES
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto fue desarrollado con React y vite, ademas de el uso de TypeScript. Se pretende que sea un poryecto el cual el usuario pueda crear notas y desde ahi mismo gestionarlas, es decir el editarlas, agregar nuevas notas he incluso poder mover estas mismas,  agregarles categorias o tags esto dependiendo del usuario.
 
-Currently, two official plugins are available:
+## Tecnologías
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [![Vite](https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+- [![TypeScript](https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+- [![React](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+- [![React MUI](https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white)](https://mui.com/)
+- [![Dnd-kit](https://img.shields.io/badge/dnd--kit-FF9900?style=for-the-badge&logoColor=white)](https://dndkit.com/)
+- [![Framer Motion](https://img.shields.io/badge/framer--motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+## Inicializar proyecto
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Para inicializar el proyecto, se recomienda primero preparar el entorno de desarrollo, instalando las dependecias necesarias para poder utilizar el proyecto. en este caso si existe algún conflicto se recomienda de igual manera verificar el package.json que ahí se encuentran las dependecias uqe se utilizan  y su versión.
+
+```
+npm install o npm i 
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Luego de esto, podras ver en consola los paquetes que han sido instaldos o actualizados, como mensajes de confrimación que ya tienes las dependencias necesarias.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+
+## Ejecutar el proyecto
+
+Para ejecutar el proyecto una vez teniendo instaladas las depencias, se pondra en terminal el siguiente comando:
+
+```
+npm run dev
+```
+Con esto el proyecto se ejecutara en algún puerto qeu tegnas configurado para esta acción.
+
+```
+http://localhost:{tu puerto}/
 ```
