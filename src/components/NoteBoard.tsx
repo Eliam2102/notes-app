@@ -54,7 +54,7 @@ const NoteBoard: React.FC = () => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 8, // El drag solo se activa después de mover 8px
+        distance: 4, // El drag solo se activa después de mover 4px,esto para que se vea algo mas fluido el arrastre
       },
     })
   );

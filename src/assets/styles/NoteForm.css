@@ -1,22 +1,26 @@
-/* Modal Overlay */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
 
 * {
   font-family: 'Noto Sans', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro para bloquear interacciones */
   display: flex;
   justify-content: center;
   align-items: center;
   animation: fadeIn 0.3s ease;
   z-index: 2200;
+  pointer-events: all;
 }
 
 /* Animación del fondo */
@@ -31,22 +35,17 @@
 
 /* Estilos del Modal */
 .note-form {
-  background-color: white; 
+  background-color: white;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
-  width: 90%;
-  max-width: 500px; 
+  height: 658px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 480px; /* Cuadrado más definido */
   animation: slideIn 0.3s ease;
+  position: relative;
   z-index: 2200;
-}
-
-textarea {
-  width: 100%; 
-  max-width: 482px; 
-  height: auto;
-  resize: vertical;
-  margin-bottom: 20px; 
+  overflow: hidden; /* Para evitar que el contenido se desborde */
 }
 
 /* Animación del modal */
@@ -63,9 +62,10 @@ textarea {
 
 /* Estilos del encabezado del modal */
 .note-form h3 {
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin-bottom: 15px;
+  font-size: 22px;
   color: #333;
+  text-align: center;
 }
 
 /* Estilos de los inputs y textarea */
@@ -73,11 +73,15 @@ textarea {
 .note-form textarea {
   width: calc(100% - 20px);
   padding: 10px;
-  margin: 15px 0;
+  margin: 10px 0;
   border: 1px solid #ccc;
-  border-radius: 5px; 
+  border-radius: 8px;
   transition: border-color 0.3s;
-  box-sizing: border-box;
+}
+
+.note-form textarea {
+  height: 100px;
+  resize: vertical;
 }
 
 /* Efecto al enfocar en inputs */
@@ -87,52 +91,15 @@ textarea {
   outline: none;
 }
 
-/* Estilos de los botones */
-.note-form .actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px; 
-}
-
-.note-form button {
-  background-color: #007bff; 
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px; 
-  cursor: pointer; 
-  transition: background-color 0.3s;
-  margin-left: 10px;
-}
-
-/* Efecto al pasar el mouse sobre el botón */
-.note-form button:hover {
-  background-color: #0056b3;
-}
-
+/* Contenedor de chips */
 .chip-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px; 
-  margin-bottom: 15px; /* Espacio debajo del contenedor de chips */
+  gap: 8px;
+  margin-bottom: 15px;
 }
 
-.tag-chip {
-  display: inline-flex;
-  align-items: center;
-  background-color: #D0B8A8; /* Color del chip */
-  padding: 5px 10px;
-  border-radius: 12px;
-  color: white;
-  margin-right: 5px;
-}
-
-.remove-tag {
-  cursor: pointer;
-  margin-left: 5px;
-  color: #fff; /* Color del ícono de eliminación */
-}
-
+/* Chips predeterminados */
 .chip {
   padding: 6px 10px;
   border-radius: 16px;
@@ -144,23 +111,23 @@ textarea {
   margin-right: 4px;
 }
 
-.selected-chips .chip {
-  margin-right: 8px;
-}
-
-.remove-chip {
-  margin-left: 8px;
-  cursor: pointer;
-  color: red;
-}
-
+/* Chip seleccionado */
 .chip.selected {
-  border: 2px solid #C5705D;
-  color: #000;
-  text-decoration: line-through;
-  text-decoration-thickness: 2.5px;
+  background-color: #C5705D;
+  color: #a79393;
+  position: relative;
+  padding-right: 25px;
 }
 
+.chip.selected::after {
+  content: "✔";
+  position: absolute;
+  right: 10px;
+  color: green;
+  font-size: 14px;
+}
+
+/* Input con chips seleccionados */
 .input-with-chips {
   display: flex;
   flex-wrap: wrap;
@@ -177,19 +144,54 @@ textarea {
   flex-grow: 1;
 }
 
-.input-with-chips .selected-chips {
+/* Estilos de los botones */
+.note-form .actions {
   display: flex;
-  flex-wrap: wrap;
-  margin-left: 8px;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-.chip-container .chip:hover {
-  opacity: 0.8;
+.note-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 30%; 
 }
 
+.note-form button:hover {
+  background-color: #0056b3;
+}
+
+.note-form button.cancel-btn {
+  background-color: #ccc;
+}
+
+.note-form button.cancel-btn:hover {
+  background-color: #999;
+}
+
+@media (max-width: 768px) { /* Media query para pantallas pequeñas */
+  .note-form .actions {
+      width: 100%; /* Hacer que el contenedor ocupe el 100% en móviles */
+      justify-content: space-around; /* Espaciado uniforme en móviles */
+  }
+  .actions button {
+    width: 140px;
+  }
+
+
+}
 /* Media Query para pantallas pequeñas */
 @media (max-width: 600px) {
   .note-form {
     margin: 0 20px;
-  }
+    width: 100%;
+    height: 600px; /* Establece una altura específica */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+    overflow-x: hidden; /* Evita el desplazamiento horizontal (opcional) */
+}
 }

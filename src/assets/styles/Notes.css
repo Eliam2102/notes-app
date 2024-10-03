@@ -33,7 +33,7 @@
 /* Txto de descripción en la nota */
 .note p {
   font-size: 8px;
-  color: #666;
+  color: #000;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -71,7 +71,7 @@
 }
 /* Cambiar el fondo al pasar el mouse sobre los botones */
 .action-icons button:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #ffff;
 }
 /* Mostrar los botones de acción solo al hacer hover sobre la nota */
 .note:hover .action-icons {
@@ -92,10 +92,14 @@
   color: #C5705D;
 }
 
-/* Estilos para los botones dentro del modal (con texto e íconos) */
 .modal-buttons {
-  margin-top: 30px;
+  position: absolute;
+  top: 8px;
+  right: 50px;
+  display: flex;
+  gap: 10px; /* Espacio entre botones */
 }
+
 .modal-buttons img {
   width: 25px; 
   height: 25px;
@@ -105,24 +109,45 @@
 
 .modal-buttons .edit-btn,
 .modal-buttons .delete-btn {
-  padding: 8px 16px;
+  padding: 8px;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  color: #555;
+  color: #000;
   font-size: 16px;
   display: flex;
   align-items: center;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
 .modal-buttons .edit-btn:hover,
 .modal-buttons .delete-btn:hover {
-  color: #C5705D;
+  color: #ffffff;
 }
 
 .modal-buttons .edit-btn svg,
 .modal-buttons .delete-btn svg {
   margin-right: 8px;
+}
+
+/* Para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .modal-buttons {
+    top: 5px;
+    right: 110px;
+  }
+
+  .modal-buttons .edit-btn,
+  .modal-buttons .delete-btn {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .modal-buttons img {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .note-footer {

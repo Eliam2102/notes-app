@@ -1,23 +1,125 @@
+/* ConfirmDialog.css */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
 
-* {
+*{
   font-family: 'Noto Sans', sans-serif;
 }
-
 .app-bar {
-  background-color: #f7c5a0;
+  background-color: #f7c5a0; 
   padding: 20px; 
   border-radius: 8px; 
-  text-align: center;
-  margin: 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.text-container {
+  width: 50%; 
+  text-align: left;
+}
+
+.animation-container {
+  width: 50%; 
+  position: relative;
+  height: 50px;
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
 }
 
 h1 {
-  font-weight: bold; 
   margin: 0;
+  font-weight: bold;
+  transition: transform 0.3s ease, opacity 0.5s ease;
 }
 
 h2 {
-  font-weight: 400; 
   margin: 0;
+  font-weight: 400;
+  transition: transform 0.3s ease, opacity 0.5s ease;
+}
+
+
+/*  obJETO QUE CREAREMOS EL LAPIZ  */
+.pencil {
+  position: absolute;
+  left: 45%;
+  top: 0; 
+  width: 50px;
+  height: 50px;
+  background-image: url('../img/lapiz.png'); 
+  background-size: cover;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.pencil.active {
+  opacity: 1;
+  animation: pencilMove 3s ease forwards;
+}
+
+/* eL TRAZO
+ QUE SE SUPONE HARÁ*/
+.scribble {
+  position: absolute;
+  left: 45%; 
+  top: 48px;
+  height: 3px;
+  width: 41%;
+  background-color: black;
+  border-radius: 80%; 
+  opacity: 0;
+  transform: scaleX(0); 
+  transform-origin: left center;
+}
+
+.scribble.active {
+  opacity: 1;
+  animation: scribbleDraw 3s ease forwards;
+}
+
+@keyframes pencilMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(500%); 
+  }
+}
+
+@keyframes scribbleDraw {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1); 
+  }
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+  .app-bar {
+    flex-direction: column; 
+    align-items: flex-start; 
+    padding: 15px; 
+  }
+
+  .text-container {
+    width: 100%; 
+  }
+
+  .animation-container {
+    display: none; 
+    }
+
+  h1, h2 {
+    width: 100%;
+    text-align: left; 
+  }
 }
