@@ -5,6 +5,7 @@
   font-family: 'Noto Sans', sans-serif;
 }
 .note {
+  position: relative; /* Añadido para posicionar el footer relativo a la nota */
   padding: 10px;
   margin-left: 10px;
   border-radius: 0;
@@ -17,13 +18,37 @@
   cursor: pointer;
 }
 
+.note-footer {
+  position: absolute; /* Cambiado a absolute */
+  bottom: -10px; /* Ajusta este valor para posicionar el footer fuera del contenedor */
+  left: 50% !important; /* Centra el pie horizontalmente */
+  transform: translateX(-50%); /* Centra el pie ajustando su propio ancho */
+  background-color: transparent; /* Asegúrate de que el fondo sea transparente o del color deseado */
+  padding: 10px;
+  text-align: center;
+  color: #000;
+  font-weight: bold;
+  margin-top: auto; 
+  z-index: 0; /* Asegúrate de que esté detrás del contenido de la nota */
+}
 
+.note h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; 
+  max-height: 80px;
+  margin-top: 45px;
+  margin-left: 38px;
+
+}
 .note:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 } 
 
-.note h3 {
+
+.note h4 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

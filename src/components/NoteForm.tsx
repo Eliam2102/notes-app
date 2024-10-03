@@ -50,7 +50,7 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
   const { dispatch } = useContext(NotesContext);
   const [title, setTitle] = useState(noteToEdit?.title || '');
   const [description, setDescription] = useState(noteToEdit?.description || '');
-  const [selectedCategory, setSelectedCategory] = useState<string[]>(noteToEdit?.category || []); // Cambiado para aceptar múltiples categorías
+  const [selectedCategory, setSelectedCategory] = useState<string[]>(Array.isArray(noteToEdit?.category) ? noteToEdit.category : []);
   const [tags, setTags] = useState(noteToEdit?.tags || []);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
@@ -89,38 +89,38 @@ const NoteForm: React.FC<NoteFormProps> = ({ closeModal, noteToEdit }) => {
 
   const handleConfirm = () => {
     const currentTimestamp = new Date().toISOString();
-    // CICLO IF NOS FACILITA LA ELECCIÓN DEPENDIENDO LO QUE SE RECIBE 
+    const categoriesToSave = Array.isArray(selectedCategory) ? selectedCategory : [];
+  
     if (noteToEdit) {
-      // USAMOS LOS DISPARADORES ESTABLECIDOS EN EL CONTEXTO
       dispatch({
         type: 'EDIT_NOTE',
         note: {
           id: noteToEdit.id,
           title,
           description,
-          category: selectedCategory.join(', '), // Ahora guarda todas las categorías seleccionadas
+          category: categoriesToSave.join(', '),
           tags,
           createdAt: noteToEdit.createdAt,
           color: noteToEdit.color,
         },
       });
     } else {
-      // USAMOS LOS DISPARADORES ESTABLECIDOS EN EL CONTEXTO
       dispatch({
         type: 'ADD_NOTE',
         note: {
           title,
           description,
-          category: selectedCategory.join(', '), // Ahora guarda todas las categorías seleccionadas
+          category: categoriesToSave.join(', '),
           tags,
           createdAt: currentTimestamp,
           color: generateRandomPastelColor(),
         },
       });
     }
-
+  
     closeModal();
   };
+  
 
   // DECIDE NO AGREGAR NADA, SE CIERRA EL DIALOGO DE CONFIRMACIÓN
   const handleCancel = () => {

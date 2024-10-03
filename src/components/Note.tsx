@@ -79,15 +79,18 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
         <div className="note-content" onClick={handleOpen} style={{ backgroundColor: note.color }}>
           {/* Título de la nota en la parte superior */}
           <div className="note-header">
-            <h3>{note.title}</h3>
+            <h4>{note.title}</h4>
           </div>
 
           {/* Descripción de la nota */}
           <p>
-            {note.description.length > 580
-              ? `${note.description.substring(0, 580)}...`
+            {note.description.length > 700
+              ? `${note.description.substring(0, 700)}...`
               : note.description}
           </p>
+        </div>
+        <div>
+          <h3>{note.title}</h3>
         </div>
               
 
