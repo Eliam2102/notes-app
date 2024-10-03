@@ -111,88 +111,120 @@ const Note: React.FC<NoteProps> = ({ note, onEdit }) => {
         </div>
       </div>
 
-      {/* Modal para ver el contenido completo de la nota */}
       <Modal open={open} onClose={handleClose}>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          bgcolor: note.color,
+          boxShadow: 24,
+          borderRadius: '8px',
+          maxHeight: { xs: '90vh', sm: '80vh' },
+          overflowY: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          p: '20px',
+        }}
+      >
         <Box
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            bgcolor: note.color,
-            boxShadow: 24,
-            borderRadius: '8px',
-            maxHeight: { xs: '90vh', sm: '80vh' },
-            overflowY: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-            p: { xs: 2, sm: 3, md: 4 },
+            width: { xs: '85vw', sm: '75vw', md: '60vw' },
+            mx: 'auto',
+            p: 2,
+            position: 'relative',
           }}
         >
-          <Box
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
             sx={{
-              width: { xs: '85vw', sm: '75vw', md: '60vw' },
-              mx: 'auto',
-              p: 2,
+              position: 'absolute',
+              right: 8,
+              top: 0,
+              color: '#000',
             }}
           >
-            <IconButton
-              aria-label="close"
-              onClick={handleClose}
-              sx={{
-                position: 'absolute',
-                right: 8,
-                top: 8,
-                color: '#000',
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
+            <CloseIcon />
+          </IconButton>
 
-            <Typography variant="h6" component="h2" style={{ fontFamily: 'Noto Sans' }}>
-              <strong>{note.title}</strong>
-            </Typography>
+          {/* Título: Encabezado h3 */}
+          <Typography
+            variant="h3"
+            component="h3"
+            sx={{
+              fontFamily: 'Noto Sans',
+              fontWeight: 700,
+              fontSize: {
+                xs: '1.5rem', // Tamaño de fuente en pantallas pequeñas
+                sm: '2rem',   // Tamaño en pantallas medianas
+                md: '2.5rem', // Tamaño en pantallas grandes
+              },
+            }}
+          >
+            {note.title}
+          </Typography>
 
+
+          {/* Descripción: Texto regular (w400) */}
+          <Typography
+            sx={{ mt: 2 }}
+            style={{
+              fontFamily: 'Noto Sans',
+              fontWeight: 400,
+              whiteSpace: 'pre-wrap',
+              overflowY: 'auto',
+              maxHeight: '300px',
+            }}
+          >
+            {note.description}
+          </Typography>
+
+          {/* Categoría (opcional): Texto regular (w400) */}
+          {note.category && (
             <Typography
               sx={{ mt: 2 }}
-              style={{
-                fontFamily: 'Noto Sans',
-                whiteSpace: 'pre-wrap',
-                overflowY: 'auto',
-                maxHeight: '300px'
-              }}
+              style={{ fontFamily: 'Noto Sans', fontWeight: 400 }}
             >
-              {note.description}
+              <strong>Categoría:</strong> {note.category}
             </Typography>
+          )}
 
-            {note.category && (
-              <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
-                <strong>Categoría:</strong> {note.category}
-              </Typography>
-            )}
-            {note.tags && (
-              <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
-                <strong>Etiquetas:</strong> {note.tags.join(', ')}
-              </Typography>
-            )}
-            {note.createdAt && (
-              <Typography sx={{ mt: 2 }} style={{ fontFamily: 'Noto Sans' }}>
-                <strong>Fecha de creación:</strong>{' '}
-                {new Date(note.createdAt).toLocaleString()}
-              </Typography>
-            )}
+          {/* Etiquetas (opcional): Texto regular (w400) */}
+          {note.tags && (
+            <Typography
+              sx={{ mt: 2 }}
+              style={{ fontFamily: 'Noto Sans', fontWeight: 400 }}
+            >
+              <strong>Etiquetas:</strong> {note.tags.join(', ')}
+            </Typography>
+          )}
 
-            <div className="modal-buttons">
-              <button className="edit-btn" onClick={handleEdit}>
-                <img src={iconEdit} alt="Edit" /> Editar
-              </button>
-              <button className="delete-btn" onClick={handleDelete}>
-                <img src={iconDelete} alt="Delete" />Eliminar
-              </button>
-            </div>
-          </Box>
+          {/* Fecha de creación */}
+          {note.createdAt && (
+            <Typography
+              sx={{ mt: 2 }}
+              style={{ fontFamily: 'Noto Sans', fontWeight: 400 }}
+            >
+              <strong>Fecha de creación:</strong>{' '}
+              {new Date(note.createdAt).toLocaleString()}
+            </Typography>
+          )}
+
+          {/* Botones de editar y eliminar */}
+          <div className="modal-buttons" style={{ marginTop: '20px' }}>
+            <button className="edit-btn" onClick={handleEdit}>
+              <img src={iconEdit} alt="Edit" /> Editar
+            </button>
+            <button className="delete-btn" onClick={handleDelete}>
+              <img src={iconDelete} alt="Delete" /> Eliminar
+            </button>
+          </div>
         </Box>
-      </Modal>
+      </Box>
+    </Modal>
+
     </>
   );
 };

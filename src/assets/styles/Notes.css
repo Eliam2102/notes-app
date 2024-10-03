@@ -6,7 +6,7 @@
 }
 .note {
   position: relative; /* Añadido para posicionar el footer relativo a la nota */
-  padding: 10px;
+  padding: 20px;
   margin-left: 10px;
   border-radius: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -120,7 +120,7 @@
 
 .modal-buttons {
   position: absolute;
-  top: 8px;
+  top: -13px;
   right: 50px;
   display: flex;
   gap: 10px; /* Espacio entre botones */
@@ -160,7 +160,7 @@
 /* Para pantallas más pequeñas */
 @media (max-width: 768px) {
   .modal-buttons {
-    top: 5px;
+    top: -30px;
     right: 110px;
   }
 
