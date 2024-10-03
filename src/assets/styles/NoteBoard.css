@@ -18,11 +18,11 @@
 .notes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 25px;
+  gap: 35px;
   justify-content: center;
   width: 100%;
   min-height: 500px; 
-  row-gap: 45px;
+  row-gap: 54px;
 }
 
 /* Mostrar el botón de agregar nota (normal) en pantallas grandes */
